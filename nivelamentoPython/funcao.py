@@ -14,6 +14,9 @@ soma, multiplicacao = somar_multiplicar(39, 2)
 print("Resultado da soma é", soma)
 print("Resultado da multiplicação é", multiplicacao)
 
+_, multiplicacao = somar_multiplicar(39, 2)
+print(f"Resultado da multiplicação é: {multiplicacao}")
+
 def subtrair(a, b):
     subtracao = a - b
     return subtracao 

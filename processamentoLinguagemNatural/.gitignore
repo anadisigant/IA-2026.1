@@ -1,0 +1,13 @@
+# Ambiente Virtual
+.venv/
+venv/
+env/
+ENV/
+
+*.pyc
+__pycache__/
+
+# Boas práticas
+.vscode/
+.idea/
+.env
