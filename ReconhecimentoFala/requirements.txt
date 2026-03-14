@@ -1,0 +1,6 @@
+transformers
+torchaudio
+PySoundFile
+soundfile
+pyaudio 
+torch
