@@ -1,6 +1,8 @@
 transformers
 torchaudio
 PySoundFile
+sounddevice
 soundfile
-pyaudio 
+flask
 torch
+nltk

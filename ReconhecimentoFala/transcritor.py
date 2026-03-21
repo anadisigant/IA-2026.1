@@ -35,6 +35,16 @@ def carregar_fala(audio, fala):
     
     return audio.squeeze()
 
+def transcrever(dispositivo, fala, modelo, processador):
+    #prepara o áudio para ser processado pelo modelo, convertendo-o em um formato adequado e garantindo que esteja na taxa de amostragem correta
+    saida = processador(fala, return_tensors="pt", sampling_rate=TAXA_AMOSTRAGEM).input_values.to(dispositivo)
+    saida = modelo(saida).logits
+
+    predicao = torch.argmax(saida, dim=-1)
+    transcricao = processador.batch_decode(predicao)[0]
+
+    return transcricao
+
 if __name__ == "__main__":
     iniciado, processador, modelo = iniciar(MODELO)
     if iniciado:
