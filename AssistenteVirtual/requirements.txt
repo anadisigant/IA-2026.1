@@ -1,0 +1,7 @@
+transformers
+torch
+torchaudio
+PySoundFile
+sounddevice
+flask
+nltk

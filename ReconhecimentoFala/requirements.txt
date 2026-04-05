@@ -1,8 +1,4 @@
 transformers
-torchaudio
-PySoundFile
-sounddevice
-soundfile
-flask
+torchaudio==2.10.0
+torchcodec==0.10
 torch
-nltk
