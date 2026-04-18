@@ -98,30 +98,32 @@ def validar_comando(comando, acoes):
 
 def executar_comando(acao, objeto, local):
     for atuador in ATUADORES:
-        atuador["atuar"](acao, objeto, local)
+        atuacao = Thread(target=atuador["atuar"], args=[acao, objeto, local])
+        atuacao.start(local)
 
 if __name__ == "__main__":
     dispositivo = "cuda:0" if torch.cuda.is_available() else "cpu"
 
     iniciado, processador, modelo, palavras_de_parada, acoes = iniciar_assistente(dispositivo)
     if iniciado:
-        fala = capturar_fala()
-        gravado, arquivo = gravar_fala(fala)
-        if gravado:
-            print("Inicializando transcrição...")
-            
-            fala, _ = torchaudio.load(arquivo)
-            transcricao = transcrever(dispositivo, fala.squeeze(), modelo, processador)
-            transcricao = transcricao.lower()
-            print(f"Você disse: {transcricao}")
+        while True:
+            fala = capturar_fala()
+            gravado, arquivo = gravar_fala(fala)
+            if gravado:
+                print("Inicializando transcrição...")
+                
+                fala, _ = torchaudio.load(arquivo)
+                transcricao = transcrever(dispositivo, fala.squeeze(), modelo, processador)
+                transcricao = transcricao.lower()
+                print(f"Você disse: {transcricao}")
 
-            comando = processar_transcricao(transcricao, palavras_de_parada)
-            print(f"Comando processado: {comando}")
-            
-            valido, acao, objeto, local = validar_comando(comando, acoes)
-            if valido:
-                executar_comando(acao, objeto, local)
-            else:
-                print("comando inválido")
+                comando = processar_transcricao(transcricao, palavras_de_parada)
+                print(f"Comando processado: {comando}")
+                
+                valido, acao, objeto, local = validar_comando(comando, acoes)
+                if valido:
+                    executar_comando(acao, objeto, local)
+                else:
+                    print("comando inválido")
     else:
         print("Erro ao iniciar o assistente!")
