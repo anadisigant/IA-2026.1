@@ -1,5 +1,5 @@
 from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC
-MODELO = ["lgris/wav2vec2-large-xlsr-open-brazilian-portuguese-v2"]
+MODELO = "lgris/wav2vec2-large-xlsr-open-brazilian-portuguese-v2"
 def iniciar_modelo(nome_modelo, dispositivo="cpu"):
    iniciado, processador, modelo = False, None, None
    try:

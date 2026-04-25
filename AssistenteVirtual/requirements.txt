@@ -1,9 +1,12 @@
 transformers
-torchaudio==2.10.0
-torchcodec==0.10
-pygame
 torch
+torchaudio
+pygame-ce
 PySoundFile
 sounddevice
 flask
 nltk
+numpy
+torchaudio==2.10.0
+torchcodec==0.10
+pygame
