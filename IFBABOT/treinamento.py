@@ -4,10 +4,13 @@ import json
 
 NOME_ROBO = "IFBA.Bot"
 
+import time
+time.clock = time.time
+
 ARQUIVOS_CONVERSAS = [
-    "conversas/informacoes_basicas.json",
-    "conversas/saudacoes.json",
-    "conversas/sistemas_de_informacao.json"
+    "conversas\informacoes_basicas.json",
+    "conversas\saudacoes.json",
+    "conversas\sistemas_de_informacao.json"
 ]
 
 def iniciar():
@@ -38,7 +41,7 @@ def carregar_conversas():
         except Exception as e:
             print(f"erro carregando conversa do arquivo {arquivo}: {e}")
 
-    return conversas
+    return carregadas, conversas
 
 def treinar(treinador, conversas):
     for conversa in conversas:
@@ -48,7 +51,7 @@ def treinar(treinador, conversas):
             
             for mensagem in mensagens:
                 print(f"Treinando com mensagem: {mensagem} e resposta: {resposta}")
-                treinador.train([mensagem, resposta])
+                treinador.train([mensagem.lower(), resposta])
 
 if __name__ == "__main__":
     iniciado, robo, treinador = iniciar()
