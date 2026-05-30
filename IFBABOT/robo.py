@@ -1,16 +1,16 @@
 from chatterbot import ChatBot
+import time
 
 NOME_ROBO = "IFBA.Bot"
-LIMIAR_ACEITACAO = 0.6
+LIMIAR_ACEITACAO = 0.75
 
-import time
 time.clock = time.time
 
 def iniciar():
     iniciado, robo = False, None
 
     try:
-        robo = ChatBot(NOME_ROBO)
+        robo = ChatBot(NOME_ROBO, read_only=True)
 
         iniciado = True
     except Exception as e:
@@ -18,7 +18,7 @@ def iniciar():
 
     return iniciado, robo
 
-def get_reposta(robo, mensagem):
+def get_resposta(robo, mensagem):
     resposta = robo.get_response(mensagem.lower())
 
     return resposta.confidence, resposta.text
@@ -27,11 +27,12 @@ if __name__ == "__main__":
     iniciado, robo = iniciar()
     if iniciado:
         while True:
-            mensagem = input("👤: ")
-            confianca, resposta = get_reposta(robo, mensagem)
+            mensagem = input("👤 ")
+
+            confianca, resposta = get_resposta(robo, mensagem)
             if confianca >= LIMIAR_ACEITACAO:
-                print(f"🤖: {resposta} / confiança: {confianca}")
+                print(f"🤖 {resposta}, confiança = {confianca}")
             else:
-                #enviar pergunta não respondida para o log
-                print("🤖: Desculpe, não entendi. Reformule, por favor!")
-                print(f"🤖: Nível de confiança: {confianca}")
+                # enviar pergunta não respondida para o log
+
+                print("🤖 não sei responder esta pergunta, por favor, pergunte outra coisa ou reformule sua pergunta")
